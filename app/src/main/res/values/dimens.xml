@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <dimen name="default_margin">16dp</dimen>
+    <dimen name="alt_detail_margin">12dp</dimen>
+    <dimen name="large_poster_width">140dp</dimen>
+    <dimen name="large_poster_height">210dp</dimen>
+    <dimen name="large_text">24sp</dimen>
+    <dimen name="medium_text">20sp</dimen>
+    <dimen name="small_text">16sp</dimen>
+    <dimen name="progress_width">42dp</dimen>
+    <dimen name="progress_height">42dp</dimen>
+    <dimen name="card_margin_small">2dp</dimen>
+    <dimen name="card_margin_medium">4dp</dimen>
+    <dimen name="card_margin_large">20dp</dimen>
+    <dimen name="card_width">110dp</dimen>
+    <dimen name="card_height">165dp</dimen>
+    <dimen name="line_spacing">4sp</dimen>
+
+</resources>

@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Now Playing</string>
+
+    <string name="sort_popular">Sort By Popularity</string>
+    <string name="sort_rating">Sort By Rating</string>
+    <string name="show_favorites">Show Favorites</string>
+
+    <string name="movies_loading">Movies Loading</string>
+    <string name="no_connection">No Internet Connection.  Showing favorites offline.</string>
+    <string name="no_data">No Results Found.  Try Again.</string>
+    <string name="no_favorites">Your favorites list is currently empty.  Click on a poster, then click the star on its details page to add.</string>
+
+    <string name="read_reviews_button">Read Reviews</string>
+    <string name="cd_movie_poster">movie poster</string>
+    <string name="cd_favorite_star">favorites star; click to add</string>
+
+    <string name="credits_cast">STARRING:\u0020</string>
+    <string name="detail_runtime_units">\u0020min.</string>
+
+    <string name="trailer_list_play_trailer">Play Trailer</string>
+    <string name="no_trailers">No trailers available</string>
+
+    <string name="star_dialog_title">Favorites</string>
+    <string name="star_dialog_currently_on_question">Remove film from favorites?</string>
+    <string name="star_dialog_currently_off_question">Add film to favorites?</string>
+</resources>
