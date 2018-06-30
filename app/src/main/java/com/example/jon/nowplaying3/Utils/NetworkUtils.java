@@ -25,7 +25,7 @@ public final class NetworkUtils {
     private static final String IMAGE_SIZE = "w185/";
 
     private static final String BASE_POSTER_LIST_URL = "http://api.themoviedb.org/3/movie/";
-    private static final String MY_API_KEY = "cb41a355bd0cef4e1eb7295c9c25a7aa";
+    private static final String MY_API_KEY = "";
     private static final String CREDITS_SUFFIX = "/credits";
     private static final String TRAILERS_SUFFIX = "/videos";
     private static final String REVIEWS_SUFFIX = "/reviews";

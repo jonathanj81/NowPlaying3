@@ -38,6 +38,9 @@ public class PosterRepository {
     public LiveData<List<Poster>> getFavorites() {
         return mFavorites;
     }
+    public LiveData<Poster> getSinglePoster(int id){
+        return mDao.getSinglePoster(id);
+    }
 
     public void deleteNonFaves(){
         new deleteAsyncTask(mDao).execute();
@@ -79,7 +82,7 @@ public class PosterRepository {
             for (Poster poster : mPosters) {
                 int insertResult = (int) mAsyncTaskDao.insertPoster(poster);
                 if (insertResult == -1) {
-                    Poster original = mAsyncTaskDao.getSinglePoster(poster.getMovieId());
+                    Poster original = mAsyncTaskDao.getSinglePoster(poster.getMovieId()).getValue();
                     int isFromPopular = poster.getInPopular();
                     if (isFromPopular == 1) {
                         original.setInPopular(1);

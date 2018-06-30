@@ -25,7 +25,7 @@ public interface PosterDao {
     LiveData<List<Poster>> loadAllFavorites();
 
     @Query("SELECT * FROM poster_table WHERE movieId = :movieId LIMIT 1")
-    Poster getSinglePoster(int movieId);
+    LiveData<Poster> getSinglePoster(int movieId);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     long insertPoster(Poster poster);

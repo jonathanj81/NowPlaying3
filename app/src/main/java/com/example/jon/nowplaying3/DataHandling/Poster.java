@@ -17,7 +17,7 @@ public class Poster {
     private String releaseDate;
     private int runtime;
     private String genre;
-    private List<String> credits;
+    private String credits;
 
     @PrimaryKey
     private int movieId;
@@ -41,11 +41,10 @@ public class Poster {
         this.inPopular = inPopular;
         this.inRated = inRated;
         this.trailerKeys = new ArrayList<>();
-        this.credits = new ArrayList<>();
     }
 
-    public double getAverage() {
-        return average;
+    public String getAverage() {
+        return String.valueOf(average);
     }
 
     public void setAverage(double average) {
@@ -108,12 +107,16 @@ public class Poster {
         this.genre = genre;
     }
 
-    public List<String> getCredits() {
+    public String getCredits() {
         return credits;
     }
 
     public void setCredits(List<String> credits) {
-        this.credits = credits;
+        StringBuilder temp = new StringBuilder();
+        for (String item : credits){
+            temp.append(item).append(" ");
+        }
+        this.credits = temp.toString();
     }
 
     public List<String> getTrailerKeys() {

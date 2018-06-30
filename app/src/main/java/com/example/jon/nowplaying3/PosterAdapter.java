@@ -90,7 +90,7 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.PosterAdap
             double index = mPosters.get(position).getPopularity() / mPosters.get(0).getPopularity() * 100;
             holder.mRelativeView.setText(String.format("%.2f",index));
         } else {
-            holder.mRelativeView.setText(String.valueOf(mPosters.get(position).getAverage()));
+            holder.mRelativeView.setText(mPosters.get(position).getAverage());
         }
         if (mPosters.get(position).getInFavorites() == 1){
             holder.mLittleStar.setVisibility(View.VISIBLE);

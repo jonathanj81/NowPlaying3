@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<layout>
+    <data>
+        <variable name="poster" type="com.example.jon.nowplaying3.DataHandling.Poster"/>
+    </data>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -38,6 +42,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:textColor="@android:color/white"
         android:textStyle="bold"
+        android:text="@{poster.title}"
         app:layout_constraintBottom_toBottomOf="@id/detail_title_background"
         app:layout_constraintLeft_toLeftOf="@id/detail_title_background"
         app:layout_constraintRight_toLeftOf="@id/detail_read_reviews_button"
@@ -62,7 +67,7 @@
             android:layout_marginRight="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textColor="@android:color/white"
-            tools:text="2017" />
+            android:text="@{poster.releaseDate}" />
 
         <View
             android:layout_width="24dp"
@@ -80,7 +85,7 @@
             android:layout_marginStart="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textColor="@android:color/white"
-            tools:text="127 min" />
+            android:text="@{poster.runtime}" />
 
         <View
             android:layout_width="24dp"
@@ -98,7 +103,7 @@
             android:layout_marginStart="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textColor="@android:color/white"
-            tools:text="Action" />
+            android:text="@{poster.genre}" />
 
         <View
             android:layout_width="24dp"
@@ -133,7 +138,7 @@
         app:layout_constraintBottom_toTopOf="@id/detail_read_reviews_button"
         app:layout_constraintLeft_toLeftOf="@id/detail_read_reviews_button"
         app:layout_constraintRight_toRightOf="@id/detail_read_reviews_button"
-        tools:text="7.5 / 10" />
+        android:text="@{poster.average}" />
 
     <ImageView
         android:id="@+id/detail_favorite_star"
@@ -167,6 +172,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
+            android:text="@{poster.description}"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@android:color/white" />
 
@@ -214,9 +220,11 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
         android:textColor="@android:color/white"
         android:textStyle="bold"
+        android:text="@{poster.credits}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/detail_iv_poster"
         app:layout_constraintRight_toLeftOf="@id/detail_description_scrollview"
         app:layout_constraintTop_toBottomOf="@id/detail_iv_poster" />
 
 </android.support.constraint.ConstraintLayout>
+</layout>

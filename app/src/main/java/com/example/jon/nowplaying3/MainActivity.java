@@ -29,6 +29,8 @@ import com.example.jon.nowplaying3.Jobs.PosterFetchJob;
 import com.example.jon.nowplaying3.Utils.FetchPosterTask;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -127,10 +129,9 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
 
     @Override
     public void onClick(Poster poster) {
-        return;
-        //Intent toDetail = new Intent(this, DetailActivity.class);
-        //toDetail.putExtra("movieID",poster.getMovieId());
-        //startActivity(toDetail);
+        Intent toDetail = new Intent(this, DetailActivity.class);
+        toDetail.putExtra("movieID",poster.getMovieId());
+        startActivity(toDetail);
     }
 
     private int getAppropriateSpanCount(Context context) {
@@ -158,6 +159,12 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
                 mViewModel.getPopular().observe(this, new Observer<List<Poster>>() {
                     @Override
                     public void onChanged(@Nullable List<Poster> posters) {
+                        Collections.sort(posters, new Comparator<Poster>() {
+                            @Override
+                            public int compare(Poster p1, Poster p2) {
+                                return (int)(p2.getPopularity() - p1.getPopularity());
+                            }
+                        });
                         mPosterAdapter.setPosters(posters);
                     }
                 });
@@ -166,6 +173,12 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
                 mViewModel.getRated().observe(this, new Observer<List<Poster>>() {
                     @Override
                     public void onChanged(@Nullable List<Poster> posters) {
+                        Collections.sort(posters, new Comparator<Poster>() {
+                            @Override
+                            public int compare(Poster p1, Poster p2) {
+                                return (int)(Double.valueOf(p2.getAverage())*100 - Double.valueOf(p1.getAverage())*100);
+                            }
+                        });
                         mPosterAdapter.setPosters(posters);
                     }
                 });

@@ -36,6 +36,9 @@ public class PosterViewModel extends AndroidViewModel {
     public LiveData<List<Poster>> getFavorites() {
         return mFavorites;
     }
+    public LiveData<Poster> getSinglePoster(int id){
+        return mRepository.getSinglePoster(id);
+    }
 
     public void upSert(List<Poster> posters) { mRepository.upSert(posters); }
 }
