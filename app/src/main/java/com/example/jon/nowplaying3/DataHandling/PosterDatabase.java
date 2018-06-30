@@ -28,7 +28,7 @@ public abstract class PosterDatabase extends RoomDatabase {
                             PosterDatabase.class,"posters")
                             .addCallback(new Callback() {
                                 @Override
-                                public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                                public void onOpen(@NonNull SupportSQLiteDatabase db) {
                                     Executors.newSingleThreadScheduledExecutor().execute(new Runnable() {
                                         @Override
                                         public void run() {

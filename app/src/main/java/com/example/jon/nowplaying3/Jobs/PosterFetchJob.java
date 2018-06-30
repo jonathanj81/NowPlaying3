@@ -66,9 +66,9 @@ public class PosterFetchJob extends Job {
         new JobRequest.Builder(PosterFetchJob.TAG)
                 .setPeriodic(TimeUnit.HOURS.toMillis(8))
                 .setRequiredNetworkType(JobRequest.NetworkType.CONNECTED)
-                .setRequiresDeviceIdle(true)
-                .setRequiresBatteryNotLow(true)
-                .setRequiresStorageNotLow(true)
+                .setRequiresDeviceIdle(false)
+                .setRequiresBatteryNotLow(false)
+                .setRequiresStorageNotLow(false)
                 .setUpdateCurrent(true)
                 .build()
                 .schedule();

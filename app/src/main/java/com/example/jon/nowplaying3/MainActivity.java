@@ -1,5 +1,6 @@
 package com.example.jon.nowplaying3;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
@@ -18,14 +19,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jon.nowplaying3.DataHandling.Poster;
 import com.example.jon.nowplaying3.DataHandling.PosterDatabase;
+import com.example.jon.nowplaying3.DataHandling.PosterRepository;
 import com.example.jon.nowplaying3.DataHandling.PosterViewModel;
+import com.example.jon.nowplaying3.Jobs.PosterFetchJob;
+import com.example.jon.nowplaying3.Utils.FetchPosterTask;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements PosterAdapter.PosterAdapterOnClickHandler{
+public class MainActivity extends AppCompatActivity implements PosterAdapter.PosterAdapterOnClickHandler {
 
     private String sortStyle = "popular";
     private RecyclerView mRecycler;
@@ -49,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
 
         int spans = getAppropriateSpanCount(this);
 
-        GridLayoutManager gLayout = new GridLayoutManager(this,spans);
+        GridLayoutManager gLayout = new GridLayoutManager(this, spans);
 
         mRecycler = findViewById(R.id.recyclerview_grid);
         mRecycler.setHasFixedSize(true);
@@ -82,63 +89,37 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
             sortStyle = "favorites";
         }
         mViewModel = ViewModelProviders.of(this).get(PosterViewModel.class);
-        switch (sortStyle){
-            case "popular":
-                mViewModel.getPopular().observe(this, new Observer<List<Poster>>() {
-                    @Override
-                    public void onChanged(@Nullable List<Poster> posters) {
-                        mRecycler.setVisibility(View.VISIBLE);
-                        mPosterAdapter.setSort(sortStyle);
-                        mPosterAdapter.setPosters(posters);
-                    }
-                });
-            case "top_rated":
-                mViewModel.getRated().observe(this, new Observer<List<Poster>>() {
-                    @Override
-                    public void onChanged(@Nullable List<Poster> posters) {
-                        mRecycler.setVisibility(View.VISIBLE);
-                        mPosterAdapter.setSort(sortStyle);
-                        mPosterAdapter.setPosters(posters);
-                    }
-                });
-            case "favorites":
-                mViewModel.getFavorites().observe(this, new Observer<List<Poster>>() {
-                    @Override
-                    public void onChanged(@Nullable List<Poster> posters) {
-                        mRecycler.setVisibility(View.VISIBLE);
-                        mPosterAdapter.setSort(sortStyle);
-                        mPosterAdapter.setPosters(posters);
-                    }
-                });
-        }
+        mRecycler.setVisibility(View.VISIBLE);
+        mPosterAdapter.setSort(sortStyle);
+        getListByStyle();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_sort,menu);
+        getMenuInflater().inflate(R.menu.menu_sort, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.action_sort_popular:
-                if (!(sortStyle.equals("popular"))){
+                if (!(sortStyle.equals("popular"))) {
                     sortStyle = "popular";
-                    updateDisplay(true);
+                    updateDisplay(isConnected);
                 }
                 return true;
             case R.id.action_sort_rating:
-                if (!(sortStyle.equals("top_rated"))){
+                if (!(sortStyle.equals("top_rated"))) {
                     sortStyle = "top_rated";
-                    updateDisplay(true);
+                    updateDisplay(isConnected);
                 }
                 return true;
             case R.id.action_show_favorites:
-                if (!(sortStyle.equals("favorites"))){
+                if (!(sortStyle.equals("favorites"))) {
                     sortStyle = "favorites";
-                    updateDisplay(true);
+                    updateDisplay(isConnected);
                 }
         }
         return super.onOptionsItemSelected(item);
@@ -152,15 +133,15 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
         //startActivity(toDetail);
     }
 
-    private int getAppropriateSpanCount(Context context){
+    private int getAppropriateSpanCount(Context context) {
         int land = Configuration.ORIENTATION_LANDSCAPE;
-        if(context.getResources().getConfiguration().orientation == land){
+        if (context.getResources().getConfiguration().orientation == land) {
             return 5;
         }
         return 3;
     }
 
-    private void updateDisplay(boolean connected){
+    private void updateDisplay(boolean connected) {
         handleConnectionAndLoad();
         setTitle(getResources().getString(R.string.app_name) + " (" + sortStyle + ")");
         mLoadingIndicator.setVisibility(View.GONE);
@@ -168,5 +149,35 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
             mErrorMessageDisplay.setVisibility(View.GONE);
         }
         mRecycler.setVisibility(View.VISIBLE);
+    }
+
+    private void getListByStyle() {
+
+        switch (sortStyle) {
+            case "popular":
+                mViewModel.getPopular().observe(this, new Observer<List<Poster>>() {
+                    @Override
+                    public void onChanged(@Nullable List<Poster> posters) {
+                        mPosterAdapter.setPosters(posters);
+                    }
+                });
+                break;
+            case "top_rated":
+                mViewModel.getRated().observe(this, new Observer<List<Poster>>() {
+                    @Override
+                    public void onChanged(@Nullable List<Poster> posters) {
+                        mPosterAdapter.setPosters(posters);
+                    }
+                });
+                break;
+            case "favorites":
+                mViewModel.getFavorites().observe(this, new Observer<List<Poster>>() {
+                    @Override
+                    public void onChanged(@Nullable List<Poster> posters) {
+                        mPosterAdapter.setPosters(posters);
+                    }
+                });
+                break;
+        }
     }
 }

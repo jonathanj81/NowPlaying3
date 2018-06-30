@@ -3,6 +3,7 @@ package com.example.jon.nowplaying3.DataHandling;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName = "poster_table")
@@ -39,6 +40,8 @@ public class Poster {
         this.inFavorites = inFavorites;
         this.inPopular = inPopular;
         this.inRated = inRated;
+        this.trailerKeys = new ArrayList<>();
+        this.credits = new ArrayList<>();
     }
 
     public double getAverage() {

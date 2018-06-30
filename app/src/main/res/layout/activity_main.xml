@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/background_main"
     android:padding="4dp"
-    tools:context="com.example.jon.nowplaying.MainActivity">
+    tools:context="com.example.jon.nowplaying3.MainActivity">
 
     <TextView
         android:id="@+id/tv_error_message"
