@@ -2,7 +2,12 @@ package com.example.jon.nowplaying3.DataHandling;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.example.jon.nowplaying3.MainActivity;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,7 +28,6 @@ public class PosterRepository {
         mPopular = mDao.loadAllPopular();
         mRated = mDao.loadAllRated();
         mFavorites = mDao.loadAllFavorites();
-
     }
 
     public LiveData<List<Poster>> getAllPosters() {
@@ -38,8 +42,12 @@ public class PosterRepository {
     public LiveData<List<Poster>> getFavorites() {
         return mFavorites;
     }
-    public LiveData<Poster> getSinglePoster(int id){
-        return mDao.getSinglePoster(id);
+    public LiveData<Poster> getSingleLivePoster(int id){
+        return mDao.getSingleLivePoster(id);
+    }
+
+    public void updatePoster(Poster poster){
+        mDao.updatePoster(poster);
     }
 
     public void deleteNonFaves(){
@@ -82,7 +90,7 @@ public class PosterRepository {
             for (Poster poster : mPosters) {
                 int insertResult = (int) mAsyncTaskDao.insertPoster(poster);
                 if (insertResult == -1) {
-                    Poster original = mAsyncTaskDao.getSinglePoster(poster.getMovieId()).getValue();
+                    Poster original = mAsyncTaskDao.getSinglePoster(poster.getMovieId());
                     int isFromPopular = poster.getInPopular();
                     if (isFromPopular == 1) {
                         original.setInPopular(1);

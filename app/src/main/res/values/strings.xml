@@ -7,6 +7,7 @@
 
     <string name="movies_loading">Movies Loading</string>
     <string name="no_connection">No Internet Connection.  Showing favorites offline.</string>
+    <string name="details_incomplete">Offline; some features on this page will not be active.</string>
     <string name="no_data">No Results Found.  Try Again.</string>
     <string name="no_favorites">Your favorites list is currently empty.  Click on a poster, then click the star on its details page to add.</string>
 

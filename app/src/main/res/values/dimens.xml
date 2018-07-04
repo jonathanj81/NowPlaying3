@@ -5,6 +5,8 @@
     <dimen name="alt_detail_margin">12dp</dimen>
     <dimen name="large_poster_width">140dp</dimen>
     <dimen name="large_poster_height">210dp</dimen>
+    <dimen name="six0_poster_width">280dp</dimen>
+    <dimen name="six0_poster_height">420dp</dimen>
     <dimen name="large_text">24sp</dimen>
     <dimen name="medium_text">20sp</dimen>
     <dimen name="small_text">16sp</dimen>

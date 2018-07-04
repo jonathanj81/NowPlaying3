@@ -94,6 +94,8 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.PosterAdap
         }
         if (mPosters.get(position).getInFavorites() == 1){
             holder.mLittleStar.setVisibility(View.VISIBLE);
+        } else {
+            holder.mLittleStar.setVisibility(View.INVISIBLE);
         }
     }
 

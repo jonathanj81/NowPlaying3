@@ -10,6 +10,5 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        JobManager.create(this).addJobCreator(new PosterFetchJobCreator(this));
     }
 }

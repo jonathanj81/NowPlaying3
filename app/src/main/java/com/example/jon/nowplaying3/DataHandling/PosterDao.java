@@ -1,6 +1,7 @@
 package com.example.jon.nowplaying3.DataHandling;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
@@ -25,7 +26,10 @@ public interface PosterDao {
     LiveData<List<Poster>> loadAllFavorites();
 
     @Query("SELECT * FROM poster_table WHERE movieId = :movieId LIMIT 1")
-    LiveData<Poster> getSinglePoster(int movieId);
+    Poster getSinglePoster(int movieId);
+
+    @Query("SELECT * FROM poster_table WHERE movieId = :movieId LIMIT 1")
+    LiveData<Poster> getSingleLivePoster(int movieId);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     long insertPoster(Poster poster);

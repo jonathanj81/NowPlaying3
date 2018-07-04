@@ -4,12 +4,9 @@ import android.support.annotation.NonNull;
 
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobRequest;
-import com.example.jon.nowplaying3.App;
 import com.example.jon.nowplaying3.DataHandling.Poster;
 import com.example.jon.nowplaying3.DataHandling.PosterDao;
 import com.example.jon.nowplaying3.DataHandling.PosterDatabase;
-import com.example.jon.nowplaying3.DataHandling.PosterRepository;
-import com.example.jon.nowplaying3.Utils.FetchPosterTask;
 import com.example.jon.nowplaying3.Utils.JSONParsingUtils;
 import com.example.jon.nowplaying3.Utils.NetworkUtils;
 
@@ -20,12 +17,13 @@ import java.util.concurrent.TimeUnit;
 public class PosterFetchJob extends Job {
 
     public static final String TAG = "poster_job_tag";
+    private PosterDatabase mDB;
+    private PosterDao mDao;
 
-    PosterFetchJob(){
+    public PosterFetchJob(PosterDatabase db){
+        mDB = db;
+        mDao = mDB.mDao();
     }
-
-    private PosterDatabase db = PosterDatabase.getDatabase(getContext());
-    private PosterDao mDao = db.mDao();
 
     @Override
     @NonNull
@@ -62,7 +60,7 @@ public class PosterFetchJob extends Job {
         return Result.SUCCESS;
     }
 
-    public static void scheduleJob() {
+    public void scheduleJob() {
         new JobRequest.Builder(PosterFetchJob.TAG)
                 .setPeriodic(TimeUnit.HOURS.toMillis(8))
                 .setRequiredNetworkType(JobRequest.NetworkType.CONNECTED)

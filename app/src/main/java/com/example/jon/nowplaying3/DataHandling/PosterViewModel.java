@@ -3,6 +3,8 @@ package com.example.jon.nowplaying3.DataHandling;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
+import android.os.AsyncTask;
 
 import java.util.List;
 
@@ -35,9 +37,6 @@ public class PosterViewModel extends AndroidViewModel {
     }
     public LiveData<List<Poster>> getFavorites() {
         return mFavorites;
-    }
-    public LiveData<Poster> getSinglePoster(int id){
-        return mRepository.getSinglePoster(id);
     }
 
     public void upSert(List<Poster> posters) { mRepository.upSert(posters); }

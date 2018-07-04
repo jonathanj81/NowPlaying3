@@ -9,13 +9,13 @@ import java.util.List;
 @Entity(tableName = "poster_table")
 public class Poster {
 
-    private double average;
+    private String average;
     private String imagePath;
     private String description;
     private double popularity;
     private String title;
     private String releaseDate;
-    private int runtime;
+    private String runtime;
     private String genre;
     private String credits;
 
@@ -27,7 +27,7 @@ public class Poster {
     private int inPopular;
     private int inRated;
 
-    public Poster(String description, double average, String imagePath, double popularity, String title, String releaseDate,
+    public Poster(String description, String average, String imagePath, double popularity, String title, String releaseDate,
                   int movieId, int inFavorites, int inPopular, int inRated) {
 
         this.imagePath = imagePath;
@@ -41,13 +41,16 @@ public class Poster {
         this.inPopular = inPopular;
         this.inRated = inRated;
         this.trailerKeys = new ArrayList<>();
+        this.runtime = " ";
+        this.genre = " ";
+        this.credits = " ";
     }
 
     public String getAverage() {
         return String.valueOf(average);
     }
 
-    public void setAverage(double average) {
+    public void setAverage(String average) {
         this.average = average;
     }
 
@@ -91,11 +94,11 @@ public class Poster {
         this.releaseDate = releaseDate;
     }
 
-    public int getRuntime() {
+    public String getRuntime() {
         return runtime;
     }
 
-    public void setRuntime(int runtime) {
+    public void setRuntime(String runtime) {
         this.runtime = runtime;
     }
 
@@ -111,12 +114,8 @@ public class Poster {
         return credits;
     }
 
-    public void setCredits(List<String> credits) {
-        StringBuilder temp = new StringBuilder();
-        for (String item : credits){
-            temp.append(item).append(" ");
-        }
-        this.credits = temp.toString();
+    public void setCredits(String credits) {
+        this.credits = credits;
     }
 
     public List<String> getTrailerKeys() {

@@ -7,14 +7,15 @@ import android.support.annotation.Nullable;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
 import com.example.jon.nowplaying3.DataHandling.PosterDao;
+import com.example.jon.nowplaying3.DataHandling.PosterDatabase;
 import com.example.jon.nowplaying3.DataHandling.PosterRepository;
 
 public class PosterFetchJobCreator implements JobCreator {
 
-    private Application mApp;
+    private PosterDatabase mDB;
 
-    public PosterFetchJobCreator(Application app){
-        mApp = app;
+    public PosterFetchJobCreator(PosterDatabase db){
+        mDB = db;
     }
 
     @Override
@@ -22,7 +23,7 @@ public class PosterFetchJobCreator implements JobCreator {
     public Job create(@NonNull String tag) {
         switch (tag) {
             case PosterFetchJob.TAG:
-                return new PosterFetchJob();
+                return new PosterFetchJob(mDB);
             default:
                 return null;
         }

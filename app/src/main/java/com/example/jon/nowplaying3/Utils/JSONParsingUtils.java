@@ -1,7 +1,10 @@
 package com.example.jon.nowplaying3.Utils;
 
+import android.util.Log;
+
 import com.example.jon.nowplaying3.DataHandling.Poster;
 import com.example.jon.nowplaying3.DataHandling.Trailer;
+import com.example.jon.nowplaying3.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -74,7 +77,7 @@ public final class JSONParsingUtils {
                     } catch (JSONException e2) {
                         e2.printStackTrace();
                     }
-                    Poster poster = new Poster(mDescription, mAverage, mImagePath, mPopularity,
+                    Poster poster = new Poster(mDescription, String.valueOf(mAverage), mImagePath, mPopularity,
                             mTitle, mReleaseDate, mID, 0, inPop, inRated);
                     posters.add(poster);
                 }
@@ -102,7 +105,10 @@ public final class JSONParsingUtils {
             try {
                 JSONObject root = new JSONObject(jSON);
                 if (root.has("runtime")){
-                    runGen.add(String.valueOf(root.getInt("runtime")));
+                    int time = root.getInt("runtime");
+                    int hours = time/60;
+                    int minutes = time%60;
+                    runGen.add(hours + ":" + minutes);
                 }
                 if (root.has("genres")){
                     JSONArray genreList = root.getJSONArray("genres");
@@ -138,7 +144,7 @@ public final class JSONParsingUtils {
                     for (int i = 0; i < min(castList.length(),3); i++){
                         JSONObject castMember = castList.getJSONObject(i);
                         if (castMember.has("name")){
-                            topCredits.add(castMember.getString("name"));
+                            topCredits.add(" " + castMember.getString("name"));
                         }
                     }
                 }
