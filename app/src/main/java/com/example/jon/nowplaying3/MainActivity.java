@@ -32,6 +32,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements PosterAdapter.PosterAdapterOnClickHandler {
 
     private String sortStyle = "popular";
+    private int startingPosition = 0;
     private RecyclerView mRecycler;
     private PosterAdapter mPosterAdapter;
     private TextView mErrorMessageDisplay;
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
     private PosterViewModel mViewModel;
     private Observer mObserver;
     private boolean isConnected;
+    private static final String SORT_STATE = "sort_state";
+    private static final String POSITION_STATE = "position_state";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,11 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
         mPosterAdapter = new PosterAdapter(this, spans);
         mRecycler.setAdapter(mPosterAdapter);
 
+        if (savedInstanceState != null && savedInstanceState.containsKey(SORT_STATE)){
+            sortStyle = savedInstanceState.getString(SORT_STATE);
+            startingPosition = savedInstanceState.getInt(POSITION_STATE);
+        }
+
         mViewModel = ViewModelProviders.of(this).get(PosterViewModel.class);
         mObserver = new Observer<List<Poster>>() {
             @Override
@@ -78,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
                     }
                 });
                 mPosterAdapter.setPosters(posters);
+                mRecycler.scrollToPosition(startingPosition);
             }
         };
 
@@ -180,5 +189,13 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
                 mViewModel.getFavorites().observe(this, mObserver);
                 break;
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString(SORT_STATE, sortStyle);
+        int pos = ((GridLayoutManager)mRecycler.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+        outState.putInt(POSITION_STATE, pos);
+        super.onSaveInstanceState(outState);
     }
 }

@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.example.jon.nowplaying3.DataHandling.Poster;
 import com.example.jon.nowplaying3.DataHandling.Trailer;
-import com.example.jon.nowplaying3.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,6 +21,20 @@ import static java.lang.Math.min;
  */
 
 public final class JSONParsingUtils {
+
+    private static final String KEY_RESULTS = "results";
+    private static final String KEY_KEY = "key";
+    private static final String KEY_CAST = "cast";
+    private static final String KEY_NAME = "name";
+    private static final String KEY_GENRES = "genres";
+    private static final String KEY_RUNTIME = "runtime";
+    private static final String KEY_TITLE = "title";
+    private static final String KEY_VOTE_AVERAGE = "vote_average";
+    private static final String KEY_POPULARITY = "popularity";
+    private static final String KEY_POSTER_PATH = "poster_path";
+    private static final String KEY_OVERVIEW = "overview";
+    private static final String KEY_RELEASE_DATE = "release_date";
+    private static final String KEY_ID = "id";
 
     public static List<Poster> getPosterArray(String jsonResponse, String type) throws JSONException {
 
@@ -45,34 +58,34 @@ public final class JSONParsingUtils {
 
         try {
             JSONObject root = new JSONObject(jsonResponse);
-            if (root.has("results")) {
-                JSONArray movieList = root.getJSONArray("results");
+            if (root.has(KEY_RESULTS)) {
+                JSONArray movieList = root.getJSONArray(KEY_RESULTS);
 
                 for (int i = 0; i < movieList.length(); i++) {
 
                     try {
                         JSONObject movie = movieList.getJSONObject(i);
 
-                        if (movie.has("vote_average")) {
-                            mAverage = movie.getDouble("vote_average");
+                        if (movie.has(KEY_VOTE_AVERAGE)) {
+                            mAverage = movie.getDouble(KEY_VOTE_AVERAGE);
                         }
-                        if (movie.has("title")) {
-                            mTitle = movie.getString("title");
+                        if (movie.has(KEY_TITLE)) {
+                            mTitle = movie.getString(KEY_TITLE);
                         }
-                        if (movie.has("popularity")) {
-                            mPopularity = movie.getDouble("popularity");
+                        if (movie.has(KEY_POPULARITY)) {
+                            mPopularity = movie.getDouble(KEY_POPULARITY);
                         }
-                        if (movie.has("poster_path")) {
-                            mImagePath = movie.getString("poster_path");
+                        if (movie.has(KEY_POSTER_PATH)) {
+                            mImagePath = movie.getString(KEY_POSTER_PATH);
                         }
-                        if (movie.has("overview")) {
-                            mDescription = movie.getString("overview");
+                        if (movie.has(KEY_OVERVIEW)) {
+                            mDescription = movie.getString(KEY_OVERVIEW);
                         }
-                        if (movie.has("release_date")) {
-                            mReleaseDate = movie.getString("release_date");
+                        if (movie.has(KEY_RELEASE_DATE)) {
+                            mReleaseDate = movie.getString(KEY_RELEASE_DATE);
                         }
-                        if (movie.has("id")) {
-                            mID = movie.getInt("id");
+                        if (movie.has(KEY_ID)) {
+                            mID = movie.getInt(KEY_ID);
                         }
                     } catch (JSONException e2) {
                         e2.printStackTrace();
@@ -104,17 +117,17 @@ public final class JSONParsingUtils {
         if (!(jSON == null || jSON.isEmpty())){
             try {
                 JSONObject root = new JSONObject(jSON);
-                if (root.has("runtime")){
-                    int time = root.getInt("runtime");
+                if (root.has(KEY_RUNTIME)){
+                    int time = root.getInt(KEY_RUNTIME);
                     int hours = time/60;
                     int minutes = time%60;
                     runGen.add(hours + ":" + minutes);
                 }
-                if (root.has("genres")){
-                    JSONArray genreList = root.getJSONArray("genres");
+                if (root.has(KEY_GENRES)){
+                    JSONArray genreList = root.getJSONArray(KEY_GENRES);
                     JSONObject firstGenre = genreList.getJSONObject(0);
-                    if (firstGenre.has("name")){
-                        runGen.add(firstGenre.getString("name"));
+                    if (firstGenre.has(KEY_NAME)){
+                        runGen.add(firstGenre.getString(KEY_NAME));
                     }
                 }
             } catch (JSONException e) {
@@ -139,12 +152,12 @@ public final class JSONParsingUtils {
         if (!(jSON == null || jSON.isEmpty())){
             try {
                 JSONObject root = new JSONObject(jSON);
-                if (root.has("cast")){
-                    JSONArray castList = root.getJSONArray("cast");
+                if (root.has(KEY_CAST)){
+                    JSONArray castList = root.getJSONArray(KEY_CAST);
                     for (int i = 0; i < min(castList.length(),3); i++){
                         JSONObject castMember = castList.getJSONObject(i);
-                        if (castMember.has("name")){
-                            topCredits.add(" " + castMember.getString("name"));
+                        if (castMember.has(KEY_NAME)){
+                            topCredits.add(" " + castMember.getString(KEY_NAME));
                         }
                     }
                 }
@@ -173,12 +186,12 @@ public final class JSONParsingUtils {
         if (!(jSON == null || jSON.isEmpty())){
             try {
                 JSONObject root = new JSONObject(jSON);
-                if (root.has("results")){
-                    JSONArray results = root.getJSONArray("results");
+                if (root.has(KEY_RESULTS)){
+                    JSONArray results = root.getJSONArray(KEY_RESULTS);
                     for (int i = 0; i < results.length(); i++){
                         JSONObject movie = results.getJSONObject(i);
-                        if (movie.has("key")){
-                            Trailer trailer = new Trailer(movie.getString("key"));
+                        if (movie.has(KEY_KEY)){
+                            Trailer trailer = new Trailer(movie.getString(KEY_KEY));
                             trailers.add(trailer);
                         }
                     }
