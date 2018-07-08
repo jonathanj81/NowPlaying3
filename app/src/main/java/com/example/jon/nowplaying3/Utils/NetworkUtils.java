@@ -1,7 +1,10 @@
 package com.example.jon.nowplaying3.Utils;
 
 import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
+
+import com.example.jon.nowplaying3.BuildConfig;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,7 +28,7 @@ public final class NetworkUtils {
     private static final String IMAGE_SIZE = "w185/";
 
     private static final String BASE_POSTER_LIST_URL = "http://api.themoviedb.org/3/movie/";
-    private static final String MY_API_KEY = "";
+    private static final String MY_API_KEY = BuildConfig.API_KEY;
     private static final String CREDITS_SUFFIX = "/credits";
     private static final String TRAILERS_SUFFIX = "/videos";
     private static final String REVIEWS_SUFFIX = "/reviews";
